@@ -18,4 +18,4 @@ Functions:
   
 ---
 Want to add:
-  - currently no ideas
+  - Making SmoothDamp function slower in air when no button pressed for a smoother landing
