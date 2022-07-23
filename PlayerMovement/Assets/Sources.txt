@@ -1,0 +1,21 @@
+General object movement: 
+    https://gamedevbeginner.com/how-to-move-objects-in-unity/ 
+
+Smoothened movement with SmoothDamp: 
+    https://www.youtube.com/watch?v=krA-B8yItc0 
+
+GroundCheck so the player cant doublejump or move in air: 
+    https://www.youtube.com/watch?v=Ekfio0gfn-Y
+
+Player rotation: 
+    https://www.youtube.com/watch?v=BJzYGsMcy8Q
+
+Scripting Refrence (did not use a specific one, but is useful in general): 
+    https://docs.unity3d.com/ScriptReference/ 
+
+2D character controller (looked a lot of things up in his charactercontroller and have converted it to 3D): 
+    https://www.youtube.com/watch?v=dwcT-Dch0bA
+
+Other: 
+    https://www.youtube.com/watch?v=dQw4w9WgXcQ 
+    

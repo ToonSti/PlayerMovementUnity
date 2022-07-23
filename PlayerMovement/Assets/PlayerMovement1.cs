@@ -12,6 +12,7 @@ public class PlayerMovement1 : MonoBehaviour
     public float groundRadius = .1f;                        // radius that the groundCheck should search in for isGround
     public bool airControl = false;                         // decide if the player can be controlled in air
     public float smoothInputSpeed = .2f;                    // amount of smoothing in the SmoothDamp
+    public float rotationSpeed;                             // amount of time used for the rotating of the player
 
     private Rigidbody rb;                                   // variable to controll the Rigidbody
     
@@ -30,7 +31,7 @@ public class PlayerMovement1 : MonoBehaviour
     void Update()
     {
         // get the horizontal inputs and put them in a vector 3
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
         // Smoothen the buildup of the vector 3 using SmoothDamp
         currentInputVector = Vector3.SmoothDamp(currentInputVector, input, ref smoothInputVelocity, smoothInputSpeed);
         
@@ -48,6 +49,14 @@ public class PlayerMovement1 : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, jumpSpeed, rb.velocity.z);
         }
 
+        // if there are inputs, execute the code
+        if (input != Vector3.zero)
+        {
+            // makes the needed rotation
+            Quaternion toRotation = Quaternion.LookRotation(input, Vector3.up);
+            // rotates the player to the needed rotation over a period of time
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
     }
 
     // function called everytime IsGrounded() is mentioned in the code
