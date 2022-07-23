@@ -17,7 +17,7 @@ public class PlayerMovement1 : MonoBehaviour
     public Animator animator;                               // variable to controll the Animator
     private Rigidbody rb;                                   // variable to controll the Rigidbody
     
-    private Vector3 currentInputVector;                     // current smoothened imput vector
+    private Vector3 currentInputVector;                     // current smoothened input vector
     private Vector3 smoothInputVelocity;                    // requirement for the SmoothDamp, gets populated in the function
 
 
@@ -61,7 +61,7 @@ public class PlayerMovement1 : MonoBehaviour
             // if the player is moving, increase the parameter "Speed" to start the PlayerMove animation    (got errors for using a boolean parameter for speed, idk why)
             animator.SetFloat("Speed", 1f);
         }
-        // else, so is the player is not moving
+        // else, so if the player is not moving
         else
         {
             // set the parameter to 0 and the animation to PlayerIdle
@@ -82,7 +82,7 @@ public class PlayerMovement1 : MonoBehaviour
         }
     }
 
-    // function called everytime IsGrounded() is mentioned in the code
+    // function called everytime IsGrounded() is mentioned in the code, a boolean value is returned
     bool IsGrounded()
     {
         // check for isGround at a groundRadius radius around the groundCheck

@@ -14,11 +14,32 @@ float x = Input.GetAxis("Horizontal");                      // get the input cor
 float z = Input.GetAxis("Vertical");                        // get the input corresponding to the z axis
 
 
-for the animation PlayerMove, I could have just sped up the PlayerIdle animation, but since you will probably never use the Idle animation sped up, I changed the animation anyway.
+For the animation PlayerMove, I could have just sped up the PlayerIdle animation, but since you will probably never use the Idle animation sped up, I changed the animation anyway.
 In case you would like to speed up your animation:
     https://docs.unity3d.com/ScriptReference/Animator-speed.html
 I dont know if this is the best and correct way of speeding up. 
 Since I think you speed up the entire animator with this, you will probably have to set the speed value back to the original when switching to PlayerIdle and before PlayerJump.
 (the link is also in Sources under "Other:".)
+
+If the player moves on ground that is not flat, it may be possible to ad multiple groundchecks (on every corner for example). 
+The conditions for the if statement can be all the groundchecks connected with an or (||).
+something like:
+
+private bool isGrounded;
+
+    bool IsGrounded()
+    {
+        if (Physics.CheckSphere(groundCheck1.position, groundRadius, isGround) || Physics.CheckSphere(groundCheck2.position, groundRadius, isGround) || Physics.CheckSphere(groundCheck3.position, groundRadius, isGround) || Physics.CheckSphere(groundCheck4.position, groundRadius, isGround))  
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+        return isGrounded;
+    }
+
+I don't know if that works or even is possible or is the most efficient way, I did not check it yet.
 
 */
