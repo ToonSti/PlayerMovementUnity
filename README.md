@@ -14,9 +14,8 @@ Functions:
   - Smoothened PLayer Rotation
   - Aircontrol option
   - No double jump
+  - Player animations
   
 ---
 Want to add:
-  - Player animations
-
-    I don't know yet if what is possible with my current Sprite.
+  - currently no ideas
