@@ -10,10 +10,11 @@ public class PlayerMovement1 : MonoBehaviour
     public float horizontalSpeed = 2;                       // horizontal speed multiplier, make the object go faster or slower
     public float jumpSpeed = 2;                             // amount of force for vertical movement (jumping)
     public float groundRadius = .1f;                        // radius that the groundCheck should search in for isGround
-    public bool airControl = false;                         // decide if the player can be controlled in air
+    public bool airControl = false;                         // decide if the player can be controlled in air, make sure to change this option before running the project
     public float smoothInputSpeed = .2f;                    // amount of smoothing in the SmoothDamp
     public float rotationSpeed;                             // amount of time used for the rotating of the player
-
+    
+    public Animator animator;                               // variable to controll the Animator
     private Rigidbody rb;                                   // variable to controll the Rigidbody
     
     private Vector3 currentInputVector;                     // current smoothened imput vector
@@ -56,6 +57,28 @@ public class PlayerMovement1 : MonoBehaviour
             Quaternion toRotation = Quaternion.LookRotation(input, Vector3.up);
             // rotates the player to the needed rotation over a period of time
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+
+            // if the player is moving, increase the parameter "Speed" to start the PlayerMove animation    (got errors for using a boolean parameter for speed, idk why)
+            animator.SetFloat("Speed", 1f);
+        }
+        // else, so is the player is not moving
+        else
+        {
+            // set the parameter to 0 and the animation to PlayerIdle
+            animator.SetFloat("Speed", 0f);
+        }
+      
+        // if the player is not touching the ground
+        if (!IsGrounded())
+        {
+            // set parameter to true and change the animation to PlayerJump
+            animator.SetBool("isJumping", true);
+        }
+        // else, so if the player is touching the ground
+        else
+        {
+            // set parameter to false and switch to PlayerIdle or PlayerMove, depending on the other parameters
+            animator.SetBool("isJumping", false);
         }
     }
 
