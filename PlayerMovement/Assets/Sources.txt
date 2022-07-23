@@ -10,12 +10,15 @@ GroundCheck so the player cant doublejump or move in air:
 Player rotation: 
     https://www.youtube.com/watch?v=BJzYGsMcy8Q
 
-Scripting Refrence (did not use a specific one, but is useful in general): 
+Scripting Reference (did not use a specific one, but is useful in general): 
     https://docs.unity3d.com/ScriptReference/ 
 
 2D character controller (looked a lot of things up in his charactercontroller and have converted it to 3D): 
     https://www.youtube.com/watch?v=dwcT-Dch0bA
 
+Animations:
+    https://www.youtube.com/watch?v=hkaysu1Z-N8
+
 Other: 
     https://www.youtube.com/watch?v=dQw4w9WgXcQ 
-    
+    https://docs.unity3d.com/ScriptReference/Animator-speed.html
