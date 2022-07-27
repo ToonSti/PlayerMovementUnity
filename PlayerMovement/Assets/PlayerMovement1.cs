@@ -11,9 +11,12 @@ public class PlayerMovement1 : MonoBehaviour
     public float jumpSpeed = 2;                             // amount of force for vertical movement (jumping)
     public float groundRadius = .1f;                        // radius that the groundCheck should search in for isGround
     public bool airControl = false;                         // decide if the player can be controlled in air, make sure to change this option before running the project
-    public float smoothInputSpeed = .2f;                    // amount of smoothing in the SmoothDamp
     public float rotationSpeed;                             // amount of time used for the rotating of the player
-    
+
+    private float smoothInputSpeed;                         // time of smoothing in the SmoothDamp
+    public float smoothInputSpeedAir = 1.5f;                // time of smoothing in the SmoothDamp in air
+    public float smoothInputSpeedGround = .2f;              // time of smoothing in the SmoothDamp on ground
+
     public Animator animator;                               // variable to controll the Animator
     private Rigidbody rb;                                   // variable to controll the Rigidbody
     
@@ -31,6 +34,25 @@ public class PlayerMovement1 : MonoBehaviour
     // function called every frame of the game
     void Update()
     {
+        // if the player is not touching the ground
+        if (!IsGrounded())
+        {
+            // increase the smoothtime in air for a smooth landing
+            smoothInputSpeed = smoothInputSpeedAir;
+
+            // set parameter to true and change the animation to PlayerJump
+            animator.SetBool("isJumping", true);
+        }
+        // else, so if the player is touching the ground
+        else
+        {
+            // changing the smoothtime back to the standard
+            smoothInputSpeed = smoothInputSpeedGround;
+
+            // set parameter to false and switch to PlayerIdle or PlayerMove, depending on the other parameters
+            animator.SetBool("isJumping", false);
+        }
+
         // get the horizontal inputs and put them in a vector 3
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
         // Smoothen the buildup of the vector 3 using SmoothDamp
@@ -66,19 +88,6 @@ public class PlayerMovement1 : MonoBehaviour
         {
             // set the parameter to 0 and the animation to PlayerIdle
             animator.SetFloat("Speed", 0f);
-        }
-      
-        // if the player is not touching the ground
-        if (!IsGrounded())
-        {
-            // set parameter to true and change the animation to PlayerJump
-            animator.SetBool("isJumping", true);
-        }
-        // else, so if the player is touching the ground
-        else
-        {
-            // set parameter to false and switch to PlayerIdle or PlayerMove, depending on the other parameters
-            animator.SetBool("isJumping", false);
         }
     }
 

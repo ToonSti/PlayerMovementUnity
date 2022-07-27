@@ -21,7 +21,7 @@ I dont know if this is the best and correct way of speeding up.
 Since I think you speed up the entire animator with this, you will probably have to set the speed value back to the original when switching to PlayerIdle and before PlayerJump.
 (the link is also in Sources under "Other:".)
 
-If the player moves on ground that is not flat, it may be possible to ad multiple groundchecks (on every corner for example). 
+If the player moves on ground that is not flat, it may be possible to add multiple groundchecks (on every corner for example). 
 The conditions for the if statement can be all the groundchecks connected with an or (||).
 something like:
 
