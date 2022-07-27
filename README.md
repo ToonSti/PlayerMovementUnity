@@ -18,4 +18,5 @@ Functions:
   
 ---
 Want to add:
-  - currently no ideas
+  - Making a character controller for the player
+  
