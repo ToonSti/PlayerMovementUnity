@@ -42,4 +42,10 @@ private bool isGrounded;
 
 I don't know if that works or even is possible or is the most efficient way, I did not check it yet.
 
+Something I did not check instead of this is this way of making a groundcheck:
+    https://www.immersivelimit.com/tutorials/simple-character-controller-for-unity
+    (the link is also in Sources under "Other:".)
+
+I would like to try this, so a character works well on slopes, but I have to find the time to understand the Math in C#. It uses a raycast instead of a checksphere.
+
 */

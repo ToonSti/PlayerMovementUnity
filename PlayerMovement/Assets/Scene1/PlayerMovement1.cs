@@ -17,7 +17,7 @@ public class PlayerMovement1 : MonoBehaviour
     public float smoothInputSpeedAir = 1.5f;                // time of smoothing in the SmoothDamp in air
     public float smoothInputSpeedGround = .2f;              // time of smoothing in the SmoothDamp on ground
 
-    public Animator animator;                               // variable to controll the Animator
+    [SerializeField] private Animator animator;                               // variable to controll the Animator
     private Rigidbody rb;                                   // variable to controll the Rigidbody
     
     private Vector3 currentInputVector;                     // current smoothened input vector

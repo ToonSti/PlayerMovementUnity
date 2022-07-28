@@ -15,8 +15,10 @@ Functions:
   - Aircontrol option
   - No double jump
   - Player animations
+  - Character Controller
   
 ---
 Want to add:
-  - Making a character controller for the player
+  - Adding a following camera
+  - Making a better GroundCheck for controlling player movement on slopes
   

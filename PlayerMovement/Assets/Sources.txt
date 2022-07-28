@@ -22,3 +22,4 @@ Animations:
 Other: 
     https://www.youtube.com/watch?v=dQw4w9WgXcQ 
     https://docs.unity3d.com/ScriptReference/Animator-speed.html
+    https://www.immersivelimit.com/tutorials/simple-character-controller-for-unity (this GroundCheck)
