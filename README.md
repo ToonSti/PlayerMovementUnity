@@ -17,10 +17,12 @@ Functions:
   - Player animations
   - Character Controller
   - Following camera
+    the camera moves ou the way for objects
   
 ---
 Want to add:
   - Making a better GroundCheck for controlling player movement on slopes
   - Remaking the character controller, with this camera it is very unintuitive to move.
     I want to make a normal 3d person character controller.
+  - Adding extra features to the camera
   
