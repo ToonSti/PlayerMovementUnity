@@ -16,9 +16,11 @@ Functions:
   - No double jump
   - Player animations
   - Character Controller
+  - Following camera
   
 ---
 Want to add:
-  - Adding a following camera
   - Making a better GroundCheck for controlling player movement on slopes
+  - Remaking the character controller, with this camera it is very unintuitive to move.
+    I want to make a normal 3d person character controller.
   
