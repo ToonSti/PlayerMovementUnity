@@ -16,8 +16,8 @@ Functions:
   - No double jump
   - Player animations
   - Character Controller
-  - Following camera
-    the camera moves ou the way for objects
+  - Following camera,
+    the camera moves out the way for objects.
   
 ---
 Want to add:
