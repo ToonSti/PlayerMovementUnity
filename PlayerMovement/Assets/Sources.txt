@@ -19,7 +19,16 @@ Scripting Reference (did not use a specific one, but is useful in general):
 Animations:
     https://www.youtube.com/watch?v=hkaysu1Z-N8
 
+Camera Raycast:
+    https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
+    https://www.youtube.com/watch?v=EINgIoTG8D4
+    https://medium.com/nerd-for-tech/unity-calculating-the-direction-to-another-gameobject-438f1301eaea
+    https://www.youtube.com/watch?v=vqc9f7HU-Vc
+
 Other: 
     https://www.youtube.com/watch?v=dQw4w9WgXcQ 
     https://docs.unity3d.com/ScriptReference/Animator-speed.html
     https://www.immersivelimit.com/tutorials/simple-character-controller-for-unity (this GroundCheck)
+
+    https://stackoverflow.com/questions/70167719/how-to-make-camera-not-go-through-the-walls-and-objects-in-unity3d
+    https://answers.unity.com/questions/473917/how-to-prevent-camera-from-moving-through-meshes.html

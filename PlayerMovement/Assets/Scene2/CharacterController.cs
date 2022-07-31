@@ -23,6 +23,9 @@ public class CharacterController : MonoBehaviour
     private Vector3 smoothInputVelocity;                                        // requirement for the SmoothDamp, gets populated in the function
     public Vector3 horizontalMove;                                              // variable to store the normalized inputs
 
+    [SerializeField] private GameObject Camera;
+
+
     // function called at the very start of the game, before start
     private void Awake()
     {
@@ -82,5 +85,10 @@ public class CharacterController : MonoBehaviour
     {
         // check for isGround at a groundRadius radius around the groundCheck
         return Physics.CheckSphere(groundCheck.position, groundRadius, isGround);
+    }
+
+    public void CameraMove()
+    {
+
     }
 }
