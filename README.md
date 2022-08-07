@@ -23,5 +23,6 @@ Functions:
 ---
 Want to add:
   - Adding a ceiling check with raycast for better crouching and improving the crouching in general
-  - Improving Camera sensitivity object dodging
+  - Improving Camera sensitivity and object dodging
+
   
