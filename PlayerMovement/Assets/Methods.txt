@@ -87,4 +87,19 @@ public class CameraController : MonoBehaviour
         transform.LookAt(lookAt.position);
     }
 } 
+
+public bool IsGrounded()
+{
+    // check for isGround at a groundRadius radius around the groundCheck
+    return Physics.CheckSphere(groundCheck.position, groundRadius, isGround);
+}
+
+// if there are inputs, execute the code
+if (horizontalMove != Vector3.zero)
+{
+    // makes the wanted rotation
+    Quaternion toRotation = Quaternion.LookRotation(horizontalMove, Vector3.up);
+    // rotates the player to the needed rotation over a period of time
+    transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+}
 */

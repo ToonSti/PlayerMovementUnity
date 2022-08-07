@@ -10,15 +10,18 @@ Containing:
   
 ---
 Functions:
-  - SmoothDamp and normalized player movement
+  - SmoothDamp and normalized 3d person player movement
   - Smoothened PLayer Rotation
   - Aircontrol option
   - No double jump
   - Player animations
   - Character Controller
+  - Controllable and following Camera without Cinemachine
+  - Groundcheck and slopelimit
+  - Sprinting and Crouching
   
 ---
 Want to add:
-  - Adding a following camera
-  - Making a better GroundCheck for controlling player movement on slopes
+  - Adding a ceiling check with raycast for better crouching and improving the crouching in general
+  - Improving Camera sensitivity object dodging
   
