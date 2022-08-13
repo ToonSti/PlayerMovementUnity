@@ -102,4 +102,6 @@ if (horizontalMove != Vector3.zero)
     // rotates the player to the needed rotation over a period of time
     transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
 }
+
+
 */

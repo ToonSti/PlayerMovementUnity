@@ -7,20 +7,24 @@ public class Player3Movement : MonoBehaviour
     public Player3Controller controller;        // variable to control the CharacterController script or use variables from it
     public Animator animator;                   // variable to control the Animator
 
+    private float inputX;                       // variable to store the horizontal inputs
+    private float inputZ;                       // variable to store the horizontal inputs
     private bool jump = false;                  // variable to define if the player wants to jump
     private bool crouch;                        // variable to define if the player wants to crouch
     private bool sprint;                        // variable to define if the player wants to sprint
-    private Vector3 input;                      // variable to store the horizontal inputs
     private float mousePosX;                    // variable to save mouse movement on the X axis
+    private float mousePosY;                    // variable to save mouse movement on the Y axis
 
     // Update is called once per frame
     void Update()
     {
-        // get the horizontal inputs and put them in a vector 3
-        input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        // get the horizontal inputs and store them in a variable
+        inputX = Input.GetAxisRaw("Horizontal");
+        inputZ = Input.GetAxisRaw("Vertical");
 
-        // get mouse movement on the X axis and save it
+        // get mouse movement on the X and Y axis and save them
         mousePosX = Input.GetAxisRaw("Mouse X");
+        mousePosY = Input.GetAxisRaw("Mouse Y");
 
         // if the player presses the defined Jump inputs
         if (Input.GetButtonDown("Jump"))
@@ -54,7 +58,6 @@ public class Player3Movement : MonoBehaviour
         }
 
         animator.SetBool("Jumping", jump);              // set the animator parameter to the just defined booleans
-        animator.SetBool("Crouching", crouch);          // set the animator parameter to the just defined booleans
         animator.SetBool("Moving", sprint);             // set the animator parameter to the just defined booleans
     }
 
@@ -62,6 +65,6 @@ public class Player3Movement : MonoBehaviour
     void FixedUpdate()
     {
         // send the defined inputs to the controller so the controller can use them
-        controller.Move(input, jump, sprint, crouch, mousePosX);
+        controller.Move(inputX, inputZ, jump, sprint, crouch, mousePosX, mousePosY);
     }
 }

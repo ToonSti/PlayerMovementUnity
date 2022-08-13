@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera3Controller : MonoBehaviour
+public class Camera3Controller2 : MonoBehaviour
 {
     [SerializeField] private LayerMask camMask;             // layers the camera raycast will check
     [SerializeField] private Transform Player;              // the player corresponding to the camera
+    [SerializeField] private Player3Controller controller;  // the player corresponding to the camera
 
     [SerializeField] private float maxCamDistance = 10f;    // distance between the player an the camera
     [SerializeField] private float camLerp = .2f;           // amount of smoothing for the camera
-    [SerializeField] private float sensitivity = 70;        // sensitivity of the vertical movement
 
     private Vector3 rayDirection;                           // direction the camera raycast will point
     private float rayDistance;                              // length of the camera raycast
@@ -18,9 +18,6 @@ public class Camera3Controller : MonoBehaviour
     private Vector3 currentCamPos;                          // current position of the camera
     private Vector3 camDirection;                           // position of the camera from the player
     private float currentCamDistance;                       // current distance between the camera and player
-    private float realCamDistance;                          // horizontal distance between the camera and player
-    private float camHeight;                                // vertical height of the camera
-    private float mousePosY;                                // the mouse position in the y axis
 
 
     // Update is called at the start
@@ -30,10 +27,8 @@ public class Camera3Controller : MonoBehaviour
         rayDistance = maxCamDistance + 1;
         // set currentCamDistance equal to maxCamDistance
         currentCamDistance = maxCamDistance;
-        // set a starting value for the camheight
-        mousePosY = 1.5f;
     }
-   
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -70,34 +65,8 @@ public class Camera3Controller : MonoBehaviour
             currentCamDistance = maxCamDistance;
         }
 
-        // if the mouse position in the y axis (mousePosY) is between the currentCamDistance with a .1 margin
-        // currentCamDistance is used as a margin for the mousePosY, because otherwise the trigonometric function for the realCamDistance will not work
-        if (mousePosY <= currentCamDistance - .1f && mousePosY >= -currentCamDistance + .1f)
-        {
-            // change the mousePosY by the vertical mouse input
-            mousePosY += Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitivity;
-            // clamp the mousePosY between the currentCamDistance with a .1 margin
-            mousePosY = Mathf.Clamp(mousePosY, -currentCamDistance + .1f, currentCamDistance - .1f);
-        }
-        // if the mousePosY was greater
-        else if (mousePosY > currentCamDistance - .1f)
-        {
-            // change the mousePosY within the currentCamDistance margin
-            mousePosY = currentCamDistance - .1f;
-        }
-        // if the mousePosY was less
-        else if (mousePosY < currentCamDistance - .1f)
-        {
-            // change the mousePosY within the currentCamDistance margin
-            mousePosY = -currentCamDistance + .1f;
-        }
-
-        // change the camHeight to the calculated mousePosY
-        camHeight = mousePosY;
-        // calculate the realCamDistance with a trigonometric function
-        realCamDistance = currentCamDistance * Mathf.Cos(Mathf.Asin(camHeight / currentCamDistance));
         // the position that the camera should be from the player
-        camDirection = new Vector3(0, camHeight, -realCamDistance);
+        camDirection = new Vector3(0, 0, -currentCamDistance);
         // set the rotations for the camera equal to the players
         Quaternion rotation = Quaternion.Euler(Player.transform.eulerAngles.x, Player.transform.eulerAngles.y, Player.transform.eulerAngles.z);
         // define the position the camera should move to
