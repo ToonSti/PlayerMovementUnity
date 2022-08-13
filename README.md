@@ -22,7 +22,4 @@ Functions:
   
 ---
 Want to add:
-  - Adding a ceiling check with raycast for better crouching and improving the crouching in general
-  - Improving Camera sensitivity and object dodging
-
-  
+  - Improve groundcheck so that the player wont get stuck on ledges  
