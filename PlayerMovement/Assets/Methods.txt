@@ -103,5 +103,82 @@ if (horizontalMove != Vector3.zero)
     transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
 }
 
+if (Physics.CheckSphere(capsBottom, cc.radius / Mathf.Cos(Mathf.Deg2Rad * groundAngle) - cc.radius * Mathf.Sin(Mathf.Deg2Rad * groundAngle), isGround))
+Physics.CheckSphere(capsBottom + new Vector3 (0, cc.radius, 0), cc.radius + .1f)
+
+
+
+// function called everytime IsGrounded() is mentioned in a script, a boolean value is returned
+    public bool IsGrounded()
+    {
+        // calculate the capsule bottom in worldspace, because the ray needs to be checked in world space
+        capsBottom = transform.TransformPoint(cc.center - Vector3.up * cc.height / 2f);
+        // make a ray from .01 above the capsBottom pointing down
+        var Ground = new Ray(capsBottom + transform.up * .01f, -transform.up);
+        // get the data from the Ground ray
+        RaycastHit groundData;
+        // if the Ground ray hits something withing 5 times the capsuleradius that is considered ground in the layermask
+        if (Physics.Raycast(Ground, out groundData, isGround))
+        {
+            // calculate the angle  that the ground is from the player
+            groundAngle = Vector3.Angle(groundData.normal, transform.up);
+            // calculate the distance the Ground ray should be poinding from the ground with the calculated angle, leaving a .01 margin (see ray Ground) using a trigonometric function
+            groundDist = cc.radius / Mathf.Cos(Mathf.Deg2Rad * groundAngle) - cc.radius + .02f;
+            // if the angle is lower than the set slopelimit, allow the player to be grounded
+            if (groundAngle < maxSlopeLimit)
+            {
+                // if the measured distance is smaller than the calculated distance
+                if (groundData.distance < groundDist)
+                {
+                    // return true, so that the player is grounded
+                    return true;
+                }
+                else if (groundData.distance > groundDist && Physics.CheckSphere(capsBottom, (cc.radius / Mathf.Cos(Mathf.Deg2Rad * groundAngle) - cc.radius) * Mathf.Sin(Mathf.Deg2Rad * groundAngle), isGround))
+                {
+                    return true;
+                }
+                else if (Physics.CheckSphere(capsBottom, .2f, isGround) && groundData.distance > groundDist && groundAngle == 0f)
+                {
+                    return true;
+                }
+                else { return false; }
+            }
+            else if (groundAngle > maxSlopeLimit && groundData.distance > groundDist && Physics.CheckSphere(capsBottom, .2f, isGround))
+            {
+                 return true;
+            }
+            else{ return false; }
+        }else{ return false; }
+    }
+
+
+    public bool IsCeiled()
+    {
+        // calculate the current top of the Capsule Collider
+        capsTop = transform.TransformPoint(cc.center + Vector3.up * cc.height / 2f);
+        // create a ray that checks from the capsTop aiming up
+        var Ceiling = new Ray(capsTop, transform.up);
+        // store the raydata
+        RaycastHit ceilingData;
+        // if the ray hits something below the normal player height that is ground (the function should only be called when the player is crouched)
+        if (Physics.Raycast(Ceiling, out ceilingData, cc.height - cc.height * playerCrouchHeight, isGround))
+        {
+            // return true so there should be a ceiling above the player
+            return true;
+        }
+        // else so if the ray hits nothing
+        else
+        {
+            // return true so there should be no ceiling above the player
+            return false;
+        }
+    }
+
+// change Capsule Collider height to crouch
+cc.height = Mathf.Lerp(cc.height, playerHeight * playerCrouchHeight, crouchLerp);
+// change Capsule Collider height to uncrouch
+cc.height = Mathf.Lerp(cc.height, playerHeight, crouchLerp);
+
+
 
 */

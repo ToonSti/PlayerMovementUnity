@@ -37,7 +37,7 @@ public class Camera3Controller2 : MonoBehaviour
         // see the ray visualized in the Scene view
         Debug.DrawRay(Player.transform.position, rayDirection, Color.yellow, .1f);
 
-        // create the ray from the player poining to the rayDireciton
+        // create the ray from the player pointing to the rayDireciton
         var rayHit = new Ray(Player.transform.position, rayDirection);
         // save the raydata in hitData
         RaycastHit hitData;

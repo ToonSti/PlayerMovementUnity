@@ -9,6 +9,8 @@ GroundCheck so the player cant doublejump or move in air:
 GroundCheck for checking slopes
     https://www.immersivelimit.com/tutorials/simple-character-controller-for-unity
     https://www.youtube.com/watch?v=j41UHuA1bLM
+GroundCheck for ledges and Checking slopes:
+    https://answers.unity.com/questions/1543673/spherecast-for-ground-check-glitch.html
 
 Player rotation: 
     https://www.youtube.com/watch?v=BJzYGsMcy8Q
@@ -16,7 +18,7 @@ Player rotation:
 Scripting Reference (did not use a specific one, but is useful in general): 
     https://docs.unity3d.com/ScriptReference/ 
 
-2D character controller (looked a lot of things up in his charactercontroller and have converted it to 3D): 
+2D character controller: 
     https://www.youtube.com/watch?v=dwcT-Dch0bA
 
 Animations:

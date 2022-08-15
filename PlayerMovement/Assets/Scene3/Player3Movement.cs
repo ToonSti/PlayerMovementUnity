@@ -33,7 +33,7 @@ public class Player3Movement : MonoBehaviour
             jump = true;
         }
         // if the player is not grounded, so it jumped or fell off
-        if (!controller.IsGrounded())
+        if (Input.GetButtonUp("Jump"))
         {
             // the CharacterController will stop the jumping code
             jump = false;

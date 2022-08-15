@@ -17,9 +17,9 @@ Functions:
   - Player animations
   - Character Controller
   - Controllable and following Camera without Cinemachine
-  - Groundcheck and slopelimit
+  - Groundcheck working on ledges and slopelimit
   - Sprinting and Crouching
   
 ---
-Want to add:
-  - Improve groundcheck so that the player wont get stuck on ledges  
+Note:
+  - Crouching changes the transformheight, I could change it so it only changes the collider, but this works best for me.

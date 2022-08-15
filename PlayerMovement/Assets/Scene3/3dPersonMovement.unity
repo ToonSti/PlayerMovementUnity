@@ -488,7 +488,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 398850393}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 15, z: 0}
+  m_LocalPosition: {x: -29.46, y: 15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -534,7 +534,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 398850393}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7a18bc30972636644b55180007b50fa5, type: 2}
   m_CullingMode: 0
@@ -899,7 +899,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865917750}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 78e5260de59c4ba4abdd7a240daeda5e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

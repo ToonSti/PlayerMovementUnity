@@ -6,9 +6,7 @@ public class Player3Controller : MonoBehaviour
 {
     public LayerMask isGround;                                                  // define what is ground in layers
     [SerializeField] private GameObject doubleCeiling;                          // backup ceilingcheck
-    [SerializeField] private GameObject camLookAt;
-    private float groundAngle;                                                  // the angle of the ground from the player
-    private float groundDist;                                                   // distance the player should be from the player
+    [SerializeField] private GameObject camLookAt;                              // GameObject the camera looks at
     [SerializeField] private float maxSlopeLimit = 60;                          // angle from which the player should not be able to move from
 
     private float horizontalSpeed;                                              // horizontal speed multiplier, make the object go faster or slower
@@ -16,7 +14,8 @@ public class Player3Controller : MonoBehaviour
     [SerializeField] private float sprintSpeed = 9;                             // speed multiplier when sprinting
     [SerializeField] private float crouchSpeed = 4;                             // speed multiplier when crouching
     [SerializeField] private float playerCrouchHeight = .75f;                   // player height when crouching (value between >0 and 1)
-    [SerializeField] private float crouchLerp = .2f;                            // speed the player crouches at
+    private float playerHeight;                                                 // height of the player transform (1 is normal)
+    private float crouchLerp = .2f;                                             // speed the player crouches at
     private float currentCrouchLerp;                                            // current speed the player crouches at
 
     [SerializeField] private float jumpSpeed = 7;                               // amount of force for vertical movement (jumping)
@@ -28,16 +27,14 @@ public class Player3Controller : MonoBehaviour
 
     private Rigidbody rb;                                                       // variable to controll the Rigidbody
     private CapsuleCollider cc;                                                 // variable to controll the Capsule Collider
-    private Vector3 capsBottom;                                                 // the bottom of the Capsule collider
     private Vector3 capsTop;                                                    // the top of the capsule collider
-    private float playerHeight = 1;                                             // height of the player transform (1 is normal)
 
     private Vector3 currentInputVector;                                         // current smoothened input vector
     private Vector3 smoothInputVelocity;                                        // requirement for the SmoothDamp, gets populated in the function
     private Vector3 horizontalMove;                                             // variable to store the normalized horizontal inputs
 
     private float mousePosX;                                                    // mouse position on the X axis
-    public float mousePosY;
+    private float mousePosY;                                                    // mouse position on the Y axis
     [Range(10f, 100f)]
     public float sensitivity;                                                   // sensitivity slider
 
@@ -59,15 +56,16 @@ public class Player3Controller : MonoBehaviour
         smoothInputSpeed = smoothInputSpeedGround;
         // set current CrouchLerp to the standard value as a starting value
         currentCrouchLerp = crouchLerp;
+        playerHeight = transform.localScale.y;
     }
 
     // function called every frame of the game
     public void Move(float inputX, float inputZ, bool jump, bool sprint, bool crouch, float rotationX, float rotationY)
     {
-        
         // Debug, show where the groundcheck and ceilingcheck checks
-        Debug.DrawRay(capsBottom + transform.up * .01f, -transform.up * cc.radius * 5, Color.green, .1f);
+        Debug.DrawRay(this.transform.position, Vector3.down * (cc.height / 2 - cc.radius), Color.green, .1f);
         Debug.DrawRay(capsTop, transform.up * .5f, Color.green, .1f);
+        Debug.Log(IsGrounded());
 
         // if the doublecheck ceilingcheck hits something and the player is not crouching
         if (Physics.CheckSphere(doubleCeiling.transform.position, cc.radius + .2f, isGround) && !crouch)
@@ -136,7 +134,7 @@ public class Player3Controller : MonoBehaviour
             rb.velocity = transform.TransformDirection(new Vector3(currentInputVector.x * horizontalSpeed, rb.velocity.y, currentInputVector.z * horizontalSpeed));
         }
 
-        // run code jump == true and IsGrounded == true         (because of the movementscript, the IsGrounded in this statement may be unnecessary)
+        // run code jump == true and IsGrounded == true
         if (jump && IsGrounded())
         {
             // applying vertical velocity to the Rigidbody multiplied by the jumpSpeed
@@ -148,7 +146,7 @@ public class Player3Controller : MonoBehaviour
         // save the mouse movement in the Y axis in mousePosY and multiply it by the velocity
         mousePosY += rotationY * sensitivity * .25f;
         // clamp the vertical movement between -90 and 90 (otherwise the camera will turn around)
-        mousePosY = Mathf.Clamp(mousePosY, -90, 90);
+        mousePosY = Mathf.Clamp(mousePosY, -89, 89);
 
         // rotate the player with the saved mousemovement
         transform.rotation = Quaternion.Euler(0, mousePosX, 0);
@@ -158,39 +156,17 @@ public class Player3Controller : MonoBehaviour
 
     // function called everytime IsGrounded() is mentioned in a script, a boolean value is returned
     public bool IsGrounded()
-    {
-        // calculate the capsule bottom in worldspace, because the ray needs to be checked in world space
-        capsBottom = transform.TransformPoint(cc.center - Vector3.up * cc.height / 2f);
-        // make a ray from .01 above the capsBottom pointing down
-        var Ground = new Ray(capsBottom + transform.up * .01f, -transform.up);
-        // get the data from the Ground ray
+    { 
+        // make a variable to store the spherecast data in
         RaycastHit groundData;
-        // if the Ground ray hits something withing 5 times the capsuleradius that is considered ground in the layermask
-        if (Physics.Raycast(Ground, out groundData, cc.radius * 5f, isGround))
+        // if the spherecast hits something
+        if (Physics.SphereCast(this.transform.position, cc.radius - Physics.defaultContactOffset, Vector3.down, out groundData, cc.height / 2 - cc.radius + 2 * Physics.defaultContactOffset, isGround))
         {
-            // calculate the angle  that the ground is from the player
-            groundAngle = Vector3.Angle(groundData.normal, transform.up);
-            // if the angle is lower than the set slopelimit, allow the player to be grounded
-            if (groundAngle < maxSlopeLimit)
-            {
-                // calculate the distance the Ground ray should be poinding from the ground with the calculated angle, leaving a .01 margin (see ray Ground) using a trigonometric function
-                groundDist = cc.radius / Mathf.Cos(Mathf.Deg2Rad * groundAngle) - cc.radius + .02f;
-                // if the measured distance is smaller than the calculated distance
-                if (groundData.distance < groundDist)
-                {
-                    // return true, so that the player is grounded
-                    return true;
-                }
-                // return false in any other case
-                else{
-                    return false;
-                }
-            }else{
-                return false;
-            }
-        }else{
-            return false;
-        }
+            // and if the hitnormal is smaller than the max slope limit, return true
+            if (Vector3.Angle(groundData.normal, transform.up) < maxSlopeLimit) { return true; }
+            // return false in any other case
+            else { return false; }
+        } else { return false; }
     }
 
     // function called everytime IsCeiled() is mentioned in a script, a boolean value is returned
